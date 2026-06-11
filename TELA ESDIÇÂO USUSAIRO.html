@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editar Usuário</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    padding:30px;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+}
+
+/* HEADER */
+
+.user-header{
+    background:#111;
+    border:1px solid #1d1d1d;
+    border-radius:24px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    margin-bottom:25px;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.user-info{
+    flex:1;
+}
+
+.user-info h1{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.user-info p{
+    color:#8f8f8f;
+    margin-bottom:15px;
+}
+
+.status-list{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.status{
+    padding:8px 14px;
+    border-radius:999px;
+    background:#1a1a1a;
+    border:1px solid #242424;
+    font-size:13px;
+    color:#cfcfcf;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.actions button{
+    height:42px;
+    padding:0 18px;
+    border-radius:999px;
+    border:1px solid #252525;
+    background:#181818;
+    color:#fff;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.actions button:hover{
+    background:#202020;
+}
+
+.actions .primary{
+    background:#fff;
+    color:#000;
+    border:none;
+    font-weight:600;
+}
+
+.actions .danger{
+    color:#ff8b8b;
+    border-color:#3d1c1c;
+}
+
+/* GRID */
+
+.content{
+    display:grid;
+    grid-template-columns:1fr 400px;
+    gap:25px;
+}
+
+/* CARD */
+
+.card{
+    background:#111;
+    border:1px solid #1d1d1d;
+    border-radius:24px;
+    padding:30px;
+}
+
+.card h2{
+    font-size:22px;
+    margin-bottom:25px;
+}
+
+/* FORM */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    margin-bottom:8px;
+    color:#9f9f9f;
+    font-size:14px;
+}
+
+.field input,
+.field select{
+    height:54px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#1a1a1a;
+    color:#fff;
+    padding:0 15px;
+    border:1px solid #242424;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:#3a3a3a;
+}
+
+/* PERMISSÕES */
+
+.permissions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.permission{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px;
+    border-radius:14px;
+    background:#181818;
+    border:1px solid #232323;
+}
+
+.permission:hover{
+    background:#1d1d1d;
+}
+
+.permission input{
+    width:18px;
+    height:18px;
+}
+
+/* FOOTER */
+
+.footer-actions{
+    margin-top:25px;
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+}
+
+.cancel{
+    height:52px;
+    padding:0 24px;
+    border:none;
+    border-radius:999px;
+    background:#1a1a1a;
+    color:#fff;
+    border:1px solid #252525;
+    cursor:pointer;
+}
+
+.save{
+    height:52px;
+    padding:0 30px;
+    border:none;
+    border-radius:999px;
+    background:#fff;
+    color:#000;
+    font-weight:700;
+    cursor:pointer;
+}
+
+@media(max-width:1100px){
+
+.content{
+    grid-template-columns:1fr;
+}
+
+.form-grid{
+    grid-template-columns:1fr;
+}
+
+.user-header{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.actions{
+    width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="user-header">
+
+        <div class="avatar">
+            <img src="https://i.pravatar.cc/300?img=12">
+        </div>
+
+        <div class="user-info">
+
+            <h1>Natan</h1>
+
+            <p>
+                natannatanzinhosilva@gmail.com
+            </p>
+
+            <div class="status-list">
+                <span class="status">Ativo</span>
+                <span class="status">Usuário</span>
+                <span class="status">Expira em 2 dias</span>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button class="primary">
+                Renovar
+            </button>
+
+            <button>
+                Editar Dias
+            </button>
+
+            <button>
+                Tornar Admin
+            </button>
+
+            <button>
+                Permissões
+            </button>
+
+            <button>
+                Suspender
+            </button>
+
+            <button>
+                Bloquear
+            </button>
+
+            <button>
+                Desbloquear
+            </button>
+
+            <button class="danger">
+                Excluir
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="content">
+
+        <div class="card">
+
+            <h2>Dados da Conta</h2>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Nome</label>
+                    <input type="text" value="Natan">
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" value="natannatanzinhosilva@gmail.com">
+                </div>
+
+                <div class="field">
+                    <label>Senha</label>
+                    <input type="password" placeholder="Digite uma nova senha">
+                </div>
+
+                <div class="field">
+                    <label>Data de Expiração</label>
+                    <input type="date">
+                </div>
+
+                <div class="field full">
+                    <label>Tipo</label>
+
+                    <select>
+                        <option>Usuário</option>
+                        <option>Administrador</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Permissões</h2>
+
+            <div class="permissions">
+
+                <label class="permission">
+                    <input type="checkbox" checked>
+                    Assistir Filmes
+                </label>
+
+                <label class="permission">
+                    <input type="checkbox" checked>
+                    Assistir Séries
+                </label>
+
+                <label class="permission">
+                    <input type="checkbox" checked>
+                    Downloads
+                </label>
+
+                <label class="permission">
+                    <input type="checkbox" checked>
+                    Favoritos
+                </label>
+
+                <label class="permission">
+                    <input type="checkbox" checked>
+                    Minha Lista
+                </label>
+
+                <label class="permission">
+                    <input type="checkbox" checked>
+                    Acesso VIP
+                </label>
+
+                <label class="permission">
+                    <input type="checkbox">
+                    Criar Usuários
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-actions">
+
+        <button class="cancel">
+            Cancelar
+        </button>
+
+        <button class="save">
+            Salvar Alterações
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>
