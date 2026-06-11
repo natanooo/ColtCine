@@ -102,7 +102,7 @@ CREATE INDEX IF NOT EXISTS idx_permissions_user ON permissions(user_id);
 
 -- Insert default admin user (password: admin123)
 INSERT OR IGNORE INTO users (id, name, email, password_hash, role, status) VALUES
-    ('a0000000000000000000000000000001', 'Admin', 'admin@cineverse.com', '$2a$10$xVqYLg5q5q5q5q5q5q5q5u', 'admin', 'active');
+    ('a0000000000000000000000000000001', 'Admin', 'admin@cineverse.com', '$2a$10$79kBS/OwxQWYmNgWWMn00..BSqspA2zncV6Md1TSdCmS0FFE/c/iq', 'admin', 'active');
 
 INSERT OR IGNORE INTO permissions (user_id, can_watch_movies, can_watch_series, can_download, can_use_favorites, can_use_watchlist, vip_access) VALUES
     ('a0000000000000000000000000000001', 1, 1, 1, 1, 1, 1);
