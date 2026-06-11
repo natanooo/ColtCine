@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { turso } from '@/lib/turso'
-import bcrypt from 'bcryptjs'
 
 export function AdminNewUserPage() {
   const navigate = useNavigate()
@@ -31,6 +30,7 @@ export function AdminNewUserPage() {
       return
     }
 
+    const { default: bcrypt } = await import('bcryptjs')
     const hash = bcrypt.hashSync(form.password, 10)
     try {
       const rs = await turso.execute({

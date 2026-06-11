@@ -65,6 +65,9 @@ CREATE TABLE IF NOT EXISTS recent_views (
     id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
     user_id TEXT NOT NULL,
     media_id INTEGER NOT NULL,
+    media_type TEXT NOT NULL DEFAULT 'movie',
+    season_number INTEGER,
+    episode_number INTEGER,
     viewed_at TEXT NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
