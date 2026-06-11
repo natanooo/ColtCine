@@ -1,13 +1,13 @@
-const EMBED = 'https://cdn-embed.com'
+const EMBED = 'https://ezvidapi.com'
 
 export function getMovieEmbedUrl(id: number | string) {
-  return `${EMBED}/filme/${id}`
+  return `${EMBED}/embed/movie/${id}`
 }
 
 export function getTVEmbedUrl(id: number | string) {
-  return `${EMBED}/serie/${id}`
+  return `${EMBED}/embed/tv/${id}/1/1`
 }
 
 export function getEpisodeEmbedUrl(id: number | string, season: number, episode: number) {
-  return `${EMBED}/serie/${id}/${season}/${episode}`
+  return `${EMBED}/embed/tv/${id}/${season}/${episode}`
 }
