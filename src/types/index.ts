@@ -79,6 +79,7 @@ export interface MediaItem {
   first_air_date?: string
   genre_ids?: number[]
   media_type: 'movie' | 'tv'
+  original_language?: string
 }
 
 export interface MovieDetail {

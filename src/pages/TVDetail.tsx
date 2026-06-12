@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useMediaStore } from '@/stores/mediaStore'
 import { useAuthStore } from '@/stores/authStore'
+import { PlayIcon, HeartIcon, HeartOutlineIcon, CheckIcon, PlusIcon, RestrictedIcon } from '@/components/shared/Icons'
 import type { TVDetail as TVDetailType } from '@/types'
 
 const GRADIENTS = [
@@ -53,7 +54,7 @@ export function TVDetailPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-6xl mb-4">🚫</p>
+          <RestrictedIcon size={48} className="mb-4 mx-auto" />
           <h2 className="text-2xl font-bold mb-2">Acesso Restrito</h2>
           <p className="text-[#999]">Sua conta não tem permissão para assistir séries.</p>
         </div>
@@ -107,8 +108,8 @@ export function TVDetailPage() {
                   {tv.genres?.map((g: any) => <span key={g.id} className="px-[18px] py-[10px] rounded-full bg-[#1b1b1b] text-xs">{g.name}</span>)}
                 </div>
                 <div className="flex gap-3 mt-5">
-                  <button disabled={!canFav} onClick={async () => { isFav ? await removeFavorite(numId, 'tv') : await addFavorite(numId, 'tv'); setIsFav(!isFav) }} className={`h-[45px] px-6 rounded-full text-sm border-none flex items-center justify-center transition-colors ${canFav ? 'bg-[#1c1c1c] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canFav ? 'Sem permissão' : ''}>{isFav ? '❤️ Favoritado' : '🤍 Favoritar'}</button>
-                  <button disabled={!canWL} onClick={async () => { isWL ? await removeFromWatchlist(numId, 'tv') : await addToWatchlist(numId, 'tv'); setIsWL(!isWL) }} className={`h-[45px] px-6 rounded-full text-sm border-none flex items-center justify-center transition-colors ${canWL ? 'bg-[#1c1c1c] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canWL ? 'Sem permissão' : ''}>{isWL ? '✅ Na Lista' : '➕ Minha Lista'}</button>
+                  <button disabled={!canFav} onClick={async () => { isFav ? await removeFavorite(numId, 'tv') : await addFavorite(numId, 'tv'); setIsFav(!isFav) }} className={`h-[45px] px-6 rounded-full text-sm border-none flex items-center justify-center gap-2 transition-colors ${canFav ? 'bg-[#1c1c1c] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canFav ? 'Sem permissão' : ''}>{isFav ? <HeartIcon size={16} /> : <HeartOutlineIcon size={16} />}{isFav ? 'Favoritado' : 'Favoritar'}</button>
+                  <button disabled={!canWL} onClick={async () => { isWL ? await removeFromWatchlist(numId, 'tv') : await addToWatchlist(numId, 'tv'); setIsWL(!isWL) }} className={`h-[45px] px-6 rounded-full text-sm border-none flex items-center justify-center gap-2 transition-colors ${canWL ? 'bg-[#1c1c1c] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canWL ? 'Sem permissão' : ''}>{isWL ? <CheckIcon size={16} /> : <PlusIcon size={16} />}{isWL ? 'Na Lista' : 'Minha Lista'}</button>
                 </div>
               </div>
             </div>
@@ -163,7 +164,7 @@ export function TVDetailPage() {
           ) : (
             <div className="text-center py-10">
               <p className="text-[#777] mb-4">Episódios disponíveis no player.</p>
-              <Link to={`/watch/tv/${tv.id}?s=${selectedSeason}&e=1`} className="inline-block px-8 py-3 rounded-full bg-white text-black font-semibold text-sm no-underline hover:bg-white/90 transition-colors">▶ Assistir Temporada {selectedSeason}</Link>
+              <Link to={`/watch/tv/${tv.id}?s=${selectedSeason}&e=1`} className="inline-flex gap-2 px-8 py-3 rounded-full bg-white text-black font-semibold text-sm no-underline items-center hover:bg-white/90 transition-colors"><PlayIcon size={16} color="#000" /> Assistir Temporada {selectedSeason}</Link>
             </div>
           )}
         </div>

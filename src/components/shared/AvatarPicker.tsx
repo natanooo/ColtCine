@@ -1,7 +1,11 @@
+import { CloseIcon } from '@/components/shared/Icons'
+
 const CHARACTERS = [
   'Cyborg', 'Robin', 'Raven', 'Beast Boy', 'Starfire',
   'Mordecai', 'Rigby', 'Muscle Man', 'Skips', 'Pops',
   'Aang', 'Katara', 'Sokka', 'Zuko', 'Toph',
+  'Terra', 'Jinx', 'Azula', 'Iroh', 'Suki',
+  'Finn', 'Jake', 'Benson', 'Steven', 'Garnet',
 ]
 
 interface Props {
@@ -19,12 +23,12 @@ export function AvatarPicker({ selected, onSelect, onClose }: Props) {
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold">Escolher Avatar</h2>
-          <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#1a1a1a] border border-[#252525] text-white cursor-pointer flex items-center justify-center hover:bg-[#222] transition-colors text-sm">✕</button>
+          <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#1a1a1a] border border-[#252525] text-white cursor-pointer flex items-center justify-center hover:bg-[#222] transition-colors"><CloseIcon size={14} /></button>
         </div>
 
         <div className="grid grid-cols-5 gap-3">
           {CHARACTERS.map(name => {
-            const url = `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(name)}`
+            const url = `https://api.dicebear.com/9.x/adventurer/png?seed=${encodeURIComponent(name)}`
             return (
               <button
                 key={name}

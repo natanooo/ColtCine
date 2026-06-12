@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { SearchIcon, CloseIcon, MenuIcon } from '@/components/shared/Icons'
 
 export function Header() {
   const { user, logout } = useAuthStore()
@@ -59,7 +60,7 @@ export function Header() {
                 onClick={() => setSearchOpen(true)}
                 className="w-[45px] h-[45px] rounded-full bg-[#151515] border-none text-white cursor-pointer flex items-center justify-center text-lg"
               >
-                🔍
+                <SearchIcon size={20} />
               </button>
             )}
 
@@ -92,7 +93,7 @@ export function Header() {
               style={{ transform: menuOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}
               aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
             >
-              {menuOpen ? '✕' : '☰'}
+              {menuOpen ? <CloseIcon size={20} /> : <MenuIcon size={20} />}
             </button>
           </div>
         </div>

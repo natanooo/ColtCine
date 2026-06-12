@@ -97,6 +97,9 @@ CREATE INDEX IF NOT EXISTS idx_users_status ON users(status);
 CREATE INDEX IF NOT EXISTS idx_favorites_user ON favorites(user_id);
 CREATE INDEX IF NOT EXISTS idx_watchlist_user ON watchlist(user_id);
 CREATE INDEX IF NOT EXISTS idx_watch_history_user ON watch_history(user_id);
+DELETE FROM recent_views WHERE rowid NOT IN (SELECT MIN(rowid) FROM recent_views GROUP BY user_id, media_id, media_type, COALESCE(season_number, 0), COALESCE(episode_number, 0));
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_recent_views_uniq ON recent_views(user_id, media_id, media_type, COALESCE(season_number, 0), COALESCE(episode_number, 0));
 CREATE INDEX IF NOT EXISTS idx_recent_views_user ON recent_views(user_id);
 CREATE INDEX IF NOT EXISTS idx_subscriptions_user ON subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_permissions_user ON permissions(user_id);

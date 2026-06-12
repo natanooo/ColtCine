@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useMediaStore } from '@/stores/mediaStore'
 import { useAuthStore } from '@/stores/authStore'
 import { MediaRow } from '@/components/shared/MediaRow'
+import { PlayIcon, RestrictedIcon } from '@/components/shared/Icons'
 
 const GRADIENTS = [
   'linear-gradient(135deg, #0f0c29, #302b63, #24243e)',
@@ -28,7 +29,7 @@ export function SeriesPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-6xl mb-4">🚫</p>
+          <RestrictedIcon size={48} className="mb-4 mx-auto" />
           <h2 className="text-2xl font-bold mb-2">Acesso Restrito</h2>
           <p className="text-[#999]">Sua conta não tem permissão para assistir séries.</p>
         </div>
@@ -62,7 +63,7 @@ export function SeriesPage() {
               <span className="inline-block bg-[#1a1a1a] px-[18px] py-[10px] rounded-full text-xs tracking-[1px] uppercase">Séries</span>
               <h1 className="text-[72px] my-5 leading-[1] font-extrabold max-md:text-[42px]">{heroTitle}</h1>
               <p className="text-[#cfcfcf] text-lg leading-[1.8] line-clamp-3">{hero.overview}</p>
-              <Link to={`/tv/${hero.id}`} className="inline-flex h-[56px] px-[35px] rounded-full bg-white text-black font-semibold no-underline items-center justify-center text-sm mt-[25px] hover:bg-white/90 transition-colors">▶ Assistir Agora</Link>
+              <Link to={`/tv/${hero.id}`} className="inline-flex h-[56px] px-[35px] rounded-full bg-white text-black font-semibold no-underline items-center justify-center gap-2 text-sm mt-[25px] hover:bg-white/90 transition-colors"><PlayIcon size={16} color="#000" /> Assistir Agora</Link>
             </motion.div>
           </div>
         </div>

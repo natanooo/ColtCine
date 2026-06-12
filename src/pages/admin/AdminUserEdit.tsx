@@ -209,10 +209,16 @@ export function AdminUserEditPage() {
       if (updates.length > 0) {
         updates.push("updated_at = datetime('now')")
         vals.push(id)
-        await turso.execute({
+        const result = await turso.execute({
           sql: `UPDATE users SET ${updates.join(', ')} WHERE id = ?`,
           args: vals,
         })
+        if (result.rowsAffected === 0) {
+          alert('Nenhum registro atualizado. O ID pode estar incorreto.')
+          setSaving(false); return
+        }
+      } else {
+        alert('Nenhum campo foi modificado.'); setSaving(false); return
       }
 
       const rs = await turso.execute({
@@ -224,9 +230,9 @@ export function AdminUserEditPage() {
         setUser(u)
         setFormPassword('')
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('[save] Error:', error)
-      alert('Erro ao salvar. Verifique o console.')
+      alert(`Erro ao salvar: ${error?.message || 'desconhecido'}`)
     } finally {
       setSaving(false)
     }

@@ -193,9 +193,15 @@ export const useMediaStore = create<MediaState>((set, get) => ({
 
   addRecentView: async (mediaId, mediaType, seasonNumber, episodeNumber) => {
     const user = useAuthStore.getState().user; if (!user) return
+    const sn = seasonNumber ?? null
+    const en = episodeNumber ?? null
     await turso.execute({
-      sql: `INSERT INTO recent_views (user_id, media_id, media_type, season_number, episode_number) VALUES (?, ?, ?, ?, ?)`,
-      args: [user.id, mediaId, mediaType, seasonNumber ?? null, episodeNumber ?? null],
+      sql: `DELETE FROM recent_views WHERE user_id = ? AND media_id = ? AND media_type = ? AND COALESCE(season_number, -1) = COALESCE(?, -1) AND COALESCE(episode_number, -1) = COALESCE(?, -1)`,
+      args: [user.id, mediaId, mediaType, sn, en],
+    })
+    await turso.execute({
+      sql: `INSERT INTO recent_views (user_id, media_id, media_type, season_number, episode_number, viewed_at) VALUES (?, ?, ?, ?, ?, datetime('now'))`,
+      args: [user.id, mediaId, mediaType, sn, en],
     })
   },
 

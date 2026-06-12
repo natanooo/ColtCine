@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useMediaStore } from '@/stores/mediaStore'
 import { useAuthStore } from '@/stores/authStore'
+import { PlayIcon, HeartIcon, HeartOutlineIcon, CheckIcon, PlusIcon, StarIcon, RestrictedIcon } from '@/components/shared/Icons'
 import type { MovieDetail as MovieDetailType } from '@/types'
 
 const GRADIENTS = [
@@ -44,7 +45,7 @@ export function MovieDetailPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-6xl mb-4">🚫</p>
+          <RestrictedIcon size={48} className="mb-4 mx-auto" />
           <h2 className="text-2xl font-bold mb-2">Acesso Restrito</h2>
           <p className="text-[#999]">Sua conta não tem permissão para assistir filmes.</p>
         </div>
@@ -92,9 +93,9 @@ export function MovieDetailPage() {
                   {movie.genres?.map(g => <span key={g.id} className="px-[18px] py-[10px] rounded-full bg-[#1b1b1b] text-xs">{g.name}</span>)}
                 </div>
                 <div className="flex gap-3 mt-6 items-center">
-                  <Link to={`/watch/movie/${movie.id}`} className="h-[52px] px-8 rounded-full bg-white text-black font-semibold flex items-center justify-center no-underline text-sm hover:bg-white/90 transition-colors">▶ Assistir</Link>
-                  <button disabled={!canFav} onClick={async () => { isFav ? await removeFavorite(numId, 'movie') : await addFavorite(numId, 'movie'); setIsFav(!isFav) }} className={`h-[52px] w-[52px] rounded-full text-lg border-none flex items-center justify-center transition-colors ${canFav ? 'bg-[#1d1d1d] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canFav ? 'Sem permissão' : ''}>{isFav ? '❤️' : '🤍'}</button>
-                  <button disabled={!canWL} onClick={async () => { isWL ? await removeFromWatchlist(numId, 'movie') : await addToWatchlist(numId, 'movie'); setIsWL(!isWL) }} className={`h-[52px] w-[52px] rounded-full text-lg border-none flex items-center justify-center transition-colors ${canWL ? 'bg-[#1d1d1d] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canWL ? 'Sem permissão' : ''}>{isWL ? '✅' : '➕'}</button>
+                  <Link to={`/watch/movie/${movie.id}`} className="h-[52px] px-8 rounded-full bg-white text-black font-semibold flex items-center justify-center gap-2 no-underline text-sm hover:bg-white/90 transition-colors"><PlayIcon size={16} color="#000" /> Assistir</Link>
+                  <button disabled={!canFav} onClick={async () => { isFav ? await removeFavorite(numId, 'movie') : await addFavorite(numId, 'movie'); setIsFav(!isFav) }} className={`h-[52px] w-[52px] rounded-full border-none flex items-center justify-center transition-colors ${canFav ? 'bg-[#1d1d1d] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canFav ? 'Sem permissão' : ''}>{isFav ? <HeartIcon size={22} /> : <HeartOutlineIcon size={22} />}</button>
+                  <button disabled={!canWL} onClick={async () => { isWL ? await removeFromWatchlist(numId, 'movie') : await addToWatchlist(numId, 'movie'); setIsWL(!isWL) }} className={`h-[52px] w-[52px] rounded-full border-none flex items-center justify-center transition-colors ${canWL ? 'bg-[#1d1d1d] text-white cursor-pointer hover:bg-[#2a2a2a]' : 'bg-[#111] text-[#555] cursor-not-allowed'}`} title={!canWL ? 'Sem permissão' : ''}>{isWL ? <CheckIcon size={22} /> : <PlusIcon size={22} />}</button>
                 </div>
               </div>
             </div>
@@ -107,7 +108,7 @@ export function MovieDetailPage() {
           <div className="mb-[60px]">
             <h2 className="text-2xl mb-[25px]">Avaliação</h2>
             <div className="flex items-center gap-4">
-              <span className="text-[56px] font-bold">★ {movie.vote_average.toFixed(1)}</span>
+              <span className="text-[56px] font-bold flex items-center gap-2"><StarIcon size={48} /> {movie.vote_average.toFixed(1)}</span>
               <span className="bg-[#1f1f1f] px-[18px] py-[10px] rounded-full text-sm">{Math.round(movie.vote_average * 10)}%</span>
             </div>
           </div>

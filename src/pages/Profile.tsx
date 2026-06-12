@@ -6,6 +6,7 @@ import { useMediaStore } from '@/stores/mediaStore'
 import { turso } from '@/lib/turso'
 import { MediaCard } from '@/components/shared/MediaCard'
 import { AvatarPicker } from '@/components/shared/AvatarPicker'
+import { StarIcon } from '@/components/shared/Icons'
 import type { MediaItem } from '@/types'
 
 const IMG_BASE = 'https://image.tmdb.org/t/p'
@@ -19,6 +20,17 @@ export function ProfilePage() {
   const [favItems, setFavItems] = useState<MediaItem[]>([])
   const [continueItems, setContinueItems] = useState<any[]>([])
   const [continueMedia, setContinueMedia] = useState<Record<string, MediaItem | null>>({})
+  const [clearing, setClearing] = useState(false)
+
+  const handleClearCW = async () => {
+    if (!user || clearing) return
+    setClearing(true)
+    try {
+      await turso.execute({ sql: 'DELETE FROM watch_history WHERE user_id = ?', args: [user.id] })
+      setContinueItems([])
+      setContinueMedia({})
+    } finally { setClearing(false) }
+  }
 
   useEffect(() => {
     if (!user) return
@@ -85,7 +97,7 @@ export function ProfilePage() {
               <div>
                 <h1 className="text-[48px] mb-2.5 font-bold max-md:text-[36px]">{user.name}</h1>
                 <p className="text-[#bbb] text-sm">Membro desde {new Date(user.created_at).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}</p>
-                <div className="mt-[15px] inline-block px-[18px] py-[10px] bg-[#111] rounded-full text-sm">⭐ Cinéfilo Premium</div>
+                <div className="mt-[15px] inline-flex items-center gap-2 px-[18px] py-[10px] bg-[#111] rounded-full text-sm"><StarIcon size={16} /> Cinéfilo Premium</div>
               </div>
             </div>
           </div>
@@ -109,7 +121,10 @@ export function ProfilePage() {
 
         {continueItems.length > 0 && (
           <section className="mt-[70px]">
-            <h2 className="text-[28px] mb-[25px] font-semibold">Continuar Assistindo</h2>
+            <div className="flex items-center justify-between mb-[25px]">
+              <h2 className="text-[28px] font-semibold">Continuar Assistindo</h2>
+              <button onClick={handleClearCW} disabled={clearing} className="text-sm text-[#999] bg-[#1c1c1c] px-[18px] py-[9px] rounded-full hover:bg-[#252525] transition-colors">{clearing ? 'Limpando...' : 'Limpar'}</button>
+            </div>
             <div className="flex flex-wrap gap-[18px]">
               {continueItems.map((item: any) => {
                 const key = `${item.media_type}-${item.media_id}`
@@ -120,7 +135,7 @@ export function ProfilePage() {
                 const poster = media?.poster_path ? `${IMG_BASE}/w200${media.poster_path}` : null
                 const title = media?.title || media?.name || `#${item.media_id}`
                 return (
-                  <Link key={`cw-${item.media_id}-${item.season_number || 0}-${item.episode_number || 0}`} to={label} className="bg-[#111] rounded-[18px] overflow-hidden w-[180px] flex-shrink-0 no-underline group hover:bg-[#181818] transition-colors">
+                  <Link key={`cw-${item.media_type}-${item.media_id}-${item.season_number || 0}-${item.episode_number || 0}`} to={label} className="bg-[#111] rounded-[18px] overflow-hidden w-[180px] flex-shrink-0 no-underline group hover:bg-[#181818] transition-colors">
                     <div className="h-[150px] bg-[#1a1a1a] overflow-hidden">
                       {poster ? <img src={poster} alt="" className="w-full h-full object-cover" /> : (
                         <div className="w-full h-full flex items-center justify-center text-[#555] text-[11px] px-2 text-center">{title}</div>

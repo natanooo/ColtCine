@@ -1,11 +1,12 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { Navigate } from 'react-router-dom'
+import { ChartIcon, UsersIcon, PlusIcon, ArrowBackIcon } from '@/components/shared/Icons'
 
 const adminLinks = [
-  { to: '/admin', label: 'Dashboard', icon: '📊' },
-  { to: '/admin/users', label: 'Usuários', icon: '👥' },
-  { to: '/admin/users/new', label: 'Novo Usuário', icon: '➕' },
+  { to: '/admin', label: 'Dashboard', icon: <ChartIcon size={18} /> },
+  { to: '/admin/users', label: 'Usuários', icon: <UsersIcon size={18} /> },
+  { to: '/admin/users/new', label: 'Novo Usuário', icon: <PlusIcon size={18} /> },
 ]
 
 export function AdminLayout() {
@@ -34,7 +35,7 @@ export function AdminLayout() {
                     : 'text-[#d0d0d0] hover:bg-[#151515] hover:text-white'
                 }`}
               >
-                <span>{link.icon}</span>
+                <span className="flex items-center">{link.icon}</span>
                 {link.label}
               </Link>
             ))}
@@ -44,7 +45,8 @@ export function AdminLayout() {
               to="/dashboard"
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm no-underline text-[#d0d0d0] hover:bg-[#151515] hover:text-white transition-all duration-300"
             >
-              ← Voltar ao Site
+              <ArrowBackIcon size={16} />
+              Voltar ao Site
             </Link>
           </div>
         </aside>

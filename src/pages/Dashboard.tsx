@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useMediaStore } from '@/stores/mediaStore'
 import { MediaRow } from '@/components/shared/MediaRow'
+import { PlayIcon } from '@/components/shared/Icons'
 import type { MediaItem } from '@/types'
 
 const GRADIENTS = [
@@ -66,7 +67,7 @@ export function DashboardPage() {
               <h1 className="text-[82px] my-5 leading-[1] font-extrabold max-md:text-[52px]">{heroTitle}</h1>
               <p className="text-[#cfcfcf] text-lg leading-[1.8] line-clamp-3">{hero.overview}</p>
               <div className="flex gap-[15px] mt-[35px] flex-wrap">
-                <Link to={heroLink} className="h-[56px] px-[35px] rounded-full bg-white text-black font-semibold no-underline flex items-center justify-center text-sm hover:bg-white/90 transition-colors">▶ Assistir Agora</Link>
+                <Link to={heroLink} className="h-[56px] px-[35px] rounded-full bg-white text-black font-semibold no-underline flex items-center justify-center gap-2 text-sm hover:bg-white/90 transition-colors"><PlayIcon size={16} color="#000" /> Assistir Agora</Link>
                 <Link to={heroLink} className="h-[56px] px-[35px] rounded-full bg-[#1c1c1c] text-white no-underline flex items-center justify-center text-sm hover:bg-[#2a2a2a] transition-colors">Mais Informações</Link>
               </div>
             </motion.div>

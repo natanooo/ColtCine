@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState, useCallback } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { turso } from '@/lib/turso'
 
 interface UserRow {
@@ -20,6 +20,7 @@ function calcDays(expiresAt: string | null) {
 }
 
 export function AdminUsersPage() {
+  const location = useLocation()
   const [users, setUsers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -35,7 +36,7 @@ export function AdminUsersPage() {
     setLoading(false)
   }
 
-  useEffect(() => { fetchUsers() }, [])
+  useEffect(() => { fetchUsers() }, [location.key])
 
   if (loading) return <p className="text-[#777]">Carregando...</p>
 
